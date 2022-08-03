@@ -1,12 +1,18 @@
 from pathlib import Path
 
-from my_settings import DATABASES, SECRET_KEY
+from my_settings import DATABASES, SECRET_KEY, ALGORITHM, KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = SECRET_KEY
 
-DEBUG = True
+ALGORITHM = ALGORITHM
+
+KAKAO_REST_API_KEY = KAKAO_REST_API_KEY
+
+KAKAO_REDIRECT_URI = KAKAO_REDIRECT_URI
+
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
