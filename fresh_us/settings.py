@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'posts',
     'comments',
     'core',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
