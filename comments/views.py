@@ -15,7 +15,7 @@ class CommentView(View):
         limit  = int(request.GET.get('limit', 5))
         offset = int(request.GET.get('offset', 0))
 
-        comments_total = Comment.objects.all().count()
+        comments_total = Comment.objects.filter(post=post_id).count()
         comments       = Comment.objects.filter(post=post_id, parent_comment_id=0).order_by('-created_at')
 
         user_id = None
