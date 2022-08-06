@@ -1,7 +1,7 @@
 import requests
 
 class KakaoAPI:
-    def __init__(self):
+    def __init__(self, redirect_uri, client_id):
         self.token_api     = "https://kauth.kakao.com/oauth/token"
         self.user_info_api = "https://kapi.kakao.com/v2/user/me"
         self.redirect_uri  = redirect_uri
