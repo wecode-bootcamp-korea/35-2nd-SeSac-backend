@@ -22,7 +22,7 @@ class KakaoSocialLoginTest(TestCase):
             'nickname' : "위코더",
             "profile_image_url" : "http://yyy.kakao.com/.../img_110x110.jpg"
         }
-        
+
         response = client.get('/users/login')
 
         self.assertEqual(response.status_code, 200)
