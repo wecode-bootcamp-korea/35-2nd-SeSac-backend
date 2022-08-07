@@ -1,10 +1,15 @@
 from pathlib import Path
 
-from my_settings import DATABASES, SECRET_KEY
+from my_settings import ALGORITHM, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DATABASES, SECRET_KEY
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = SECRET_KEY
+
+ALGORITHM = ALGORITHM
+
+AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
 
 DEBUG = True
 
@@ -22,6 +27,7 @@ INSTALLED_APPS = [
     'posts',
     'comments',
     'core',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -107,3 +113,13 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+
+MAX_UPLOAD_SIZE = 5242880
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
