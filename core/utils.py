@@ -21,11 +21,11 @@ class ImageUploader:
 
 
 class ImageHandler:
-    def __init__(self, client):
+    def __init__(self, client, file):
         self.client = client
 
-    def save(self, file):
-        return self.client.upload(file)
+    def save(self):
+        return self.client.upload(self.file)
 
-    def delete(self, file_name):
-        return self.client.delete(file_name)
+    def delete(self):
+        return self.client.delete(self.file)

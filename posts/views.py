@@ -43,7 +43,8 @@ class PostView(View):
             )
 
             for file in files:
-                url = ImageHandler(image_uploader).save(file)
+                image_handler = ImageHandler(image_uploader, file)
+                url = image_handler.save()
                 Image.objects.create(
                     post_id = post.id,
                     image_url = url
