@@ -1,3 +1,4 @@
+from ssl import create_default_context
 import jwt
 
 from django.views import View
@@ -14,17 +15,19 @@ class KakaoSocialLoginView(View):
         kakao_token = kakao_api.get_kakao_access_token(auth_code)
         kakao_info  = kakao_api.get_user_kakao_information(kakao_token)
 
-        user = User.objects.filter(kakao_id=kakao_info['kakao_id'])
+        user, created = User.objects.get_or_create(
+            kakao_id          = kakao_info['kakao_id'],
+            email             = kakao_info['email'],
+            nickname          = kakao_info['nickname'],
+            profile_image_url = kakao_info['profile_image_url'],
+        )
 
-        if not user.exists():
-            User.objects.create(
-                kakao_id          = kakao_info['kakao_id'],
-                email             = kakao_info['email'],
-                nickname          = kakao_info['nickname'],
-                profile_image_url = kakao_info['profile_image_url'],
-            )
+        kakao_api.expire_user_access_token(kakao_token)
 
-        access_token = jwt.encode({'id' : user.first().id}, settings.SECRET_KEY, settings.ALGORITHM)
-
-        return JsonResponse({'access_token' : access_token}, status = 200)
+        message = "Sign_in"
+        if created == True:
+            message = "Sign_up"
         
+        access_token = jwt.encode({'id' : user.id}, settings.SECRET_KEY, settings.ALGORITHM)
+
+        return JsonResponse({'access_token' : access_token, 'message' : message}, status = 200)
