@@ -7,13 +7,17 @@ from django.views import View
 from my_settings  import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
 from users.utils  import login_decorator
 from .models      import Post, PostCategory, Category, PostHashtag, Hashtag, Location, Image
+from core.utils   import ImageHandler, ImageUploader
 
-class PostView(View):
-    s3_client = boto3.client(
+s3_client = boto3.client(
         's3',
         aws_access_key_id     = AWS_ACCESS_KEY_ID,
         aws_secret_access_key = AWS_SECRET_ACCESS_KEY
     )
+
+image_uploader = ImageUploader(s3_client)
+
+class PostView(View):
     @login_decorator
     def post(self, request):
         try:
@@ -39,17 +43,10 @@ class PostView(View):
             )
 
             for file in files:
-                self.s3_client.upload_fileobj(
-                    file, 
-                    "freshus",
-                    unquote(file.name),
-                    ExtraArgs={
-                        "ContentType": file.content_type
-                    }
-                )
+                url = ImageHandler(image_uploader).save(file)
                 Image.objects.create(
                     post_id = post.id,
-                    image_url = "https://freshus.s3.ap-northeast-2.amazonaws.com/%s" %  (file.name)
+                    image_url = url
                 )
 
             for category in categories:
