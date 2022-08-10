@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from my_settings import DATABASES, SECRET_KEY, ALGORITHM, KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY
+from my_settings import ALGORITHM, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DATABASES, SECRET_KEY, KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -12,7 +12,10 @@ KAKAO_REST_API_KEY = KAKAO_REST_API_KEY
 
 KAKAO_REDIRECT_URI = KAKAO_REDIRECT_URI
 
-DEBUG = False
+AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
+
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -114,3 +117,13 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+
+MAX_UPLOAD_SIZE = 5242880
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
