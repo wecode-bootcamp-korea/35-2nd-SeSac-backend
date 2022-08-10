@@ -2,10 +2,11 @@ import requests
 
 class KakaoAPI:
     def __init__(self, client_id, redirect_uri):
-        self.token_api     = "https://kauth.kakao.com/oauth/token"
-        self.user_info_api = "https://kapi.kakao.com/v2/user/me"
-        self.redirect_uri  = redirect_uri
-        self.client_id     = client_id
+        self.token_api        = "https://kauth.kakao.com/oauth/token"
+        self.user_info_api    = "https://kapi.kakao.com/v2/user/me"
+        self.expire_token_api = "https://kapi.kakao.com/v1/user/logout"
+        self.redirect_uri     = redirect_uri
+        self.client_id        = client_id
 
     def get_kakao_access_token(self, code):
         body = {
@@ -37,3 +38,12 @@ class KakaoAPI:
         }
 
         return user_kakao_info
+
+    def expire_user_access_token(self, kakao_token):
+        headers = {
+            'AUTHORIZATION' : f'Bearer {kakao_token}'
+            }
+
+        expire_token_res = requests.post(self.expire_token_api, headers=headers).json()
+
+        return expire_token_res
