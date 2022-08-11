@@ -4,19 +4,18 @@ from django.http      import JsonResponse
 from django.views     import View
 from django.db.models import Q
 
-from my_settings  import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
-from users.utils  import login_decorator
-from .models      import Post, PostCategory, Category, PostHashtag, Hashtag, Location, Image
-
-from posts.models import Post, Hashtag
-from core.utils   import ImageHandler, ImageUploader
+from fresh_us.settings import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
+from users.utils       import login_decorator
+from .models           import Post, PostCategory, Category, PostHashtag, Hashtag, Location, Image
+from posts.models      import Post, Hashtag
+from core.util        import ImageHandler, ImageUploader
+from users.models      import User
 
 s3_client = boto3.client(
         's3',
         aws_access_key_id     = AWS_ACCESS_KEY_ID,
         aws_secret_access_key = AWS_SECRET_ACCESS_KEY
     )
-
 image_uploader = ImageUploader(s3_client)
 
 class PostView(View):
@@ -57,7 +56,6 @@ class PostView(View):
                     post_id     = post.id,
                     category_id = Category.objects.get(name=category).id
                 )
-
             for hashtag in hashtags:
                 hashtag, created = Hashtag.objects.get_or_create(
                     name = hashtag
@@ -73,6 +71,34 @@ class PostView(View):
         
         except KeyError:
             return JsonResponse({"message" : "KEY_ERROR"}, status=400)
+
+    @login_decorator
+    def delete(self, request, post_id):
+        try:
+            if request.user == None:
+                return JsonResponse({'message' : 'UNAUTHORIZED_USER'}, status=403)
+            
+            user_id   = User.objects.get(id=request.user.id).id 
+            
+            if Post.objects.get(id=post_id).user.id == user_id:
+                Location.objects.get(post__id=post_id).delete()
+                
+                for image in Image.objects.filter(post_id=post_id):
+                    image_name    = image.image_url.split('/')[-1]
+                    image_handler = ImageHandler(image_uploader, image_name)
+                    image_handler.delete()
+                Image.objects.filter(post_id=post_id).delete()
+                
+                Post.objects.get(id=post_id).delete()
+                PostCategory.objects.filter(post_id=post_id).delete()
+                PostHashtag.objects.filter(post_id=post_id).delete()
+                
+                return JsonResponse({"message": "DELETE_SUCCESS"}, status=204)
+            
+            return JsonResponse({"message": "USER_DOES_NOT_WROTE_THIS_POST"}, status=403)
+
+        except Post.DoesNotExist:
+            return JsonResponse({'message': 'POST_DOES_NOT_EXIST'}, status=400)
 
 class PostListView(View):
     def get(self, request):
