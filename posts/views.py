@@ -100,6 +100,7 @@ class PostView(View):
         except Post.DoesNotExist:
             return JsonResponse({'message': 'POST_DOES_NOT_EXIST'}, status=400)
     
+    @login_decorator
     def get(self, request, post_id):
         try:
             if request.user == None:
