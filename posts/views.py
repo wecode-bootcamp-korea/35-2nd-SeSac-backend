@@ -4,12 +4,12 @@ from django.http      import JsonResponse
 from django.views     import View
 from django.db.models import Q
 
-from fresh_us.settings import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
-from users.utils       import login_decorator
-from .models           import Post, PostCategory, Category, PostHashtag, Hashtag, Location, Image
-from posts.models      import Post, Hashtag
-from core.util        import ImageHandler, ImageUploader
-from users.models      import User
+from users.utils        import login_decorator
+from .models            import Post, PostCategory, Category, PostHashtag, Hashtag, Location, Image, Hashtag
+from posts.models       import Post, Hashtag
+from core.util         import ImageHandler, ImageUploader
+from fresh_us.settings  import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
+from users.models       import User
 
 s3_client = boto3.client(
         's3',
@@ -96,6 +96,43 @@ class PostView(View):
                 return JsonResponse({"message": "DELETE_SUCCESS"}, status=204)
             
             return JsonResponse({"message": "USER_DOES_NOT_WROTE_THIS_POST"}, status=403)
+        
+        except Post.DoesNotExist:
+            return JsonResponse({'message': 'POST_DOES_NOT_EXIST'}, status=400)
+    
+    def get(self, request, post_id):
+        try:
+            if request.user == None:
+                user_id = "NOT_LOG_IN_USER"
+            else:
+                user_id = User.objects.get(id=request.user.id).id
+            
+            post = Post.objects.select_related('user', 'location')\
+                .prefetch_related('category')\
+                .get(id=post_id)
+
+            result  = {
+                "user_id"                       : user_id,
+                "post_id"                       : post_id,
+                "written_user_id"               : post.user.id,
+                "written_user_name"             : post.user.nickname,
+                "written_user_profile_image_url": post.user.profile_image_url,
+                'created_at'                    : post.created_at,
+                "address"                       : post.location.address,
+                "latitude"                      : post.location.latitude,
+                "longitude"                     : post.location.longitude,
+                "title"                         : post.title,
+                "images"                        : [{
+                    "id"  : image.id,
+                    "url" : image.image_url
+                    }for image in Image.objects.filter(post_id=post_id)],
+                "content"          : post.content,
+                "hashtags"         : [{
+                    "id" : hashtag.id,
+                    "name" : hashtag.name
+                    }for hashtag in Hashtag.objects.filter(posthashtag__post_id=post_id)]
+            }
+            return JsonResponse({"result": result}, status=200)
 
         except Post.DoesNotExist:
             return JsonResponse({'message': 'POST_DOES_NOT_EXIST'}, status=400)
