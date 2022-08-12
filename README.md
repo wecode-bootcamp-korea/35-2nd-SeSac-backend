@@ -6,6 +6,7 @@
 ## 팀 인원
 - BE(2명): 김동규, 박서윤
 - FE(4명): 김영수, 박성은, 손민지, 이금관
+<img width="800px" src="https://user-images.githubusercontent.com/91110192/184283372-ca6c21ff-6cd2-4449-91aa-a40dc203f012.jpg">
 
 ## 개발 기간
 - 개발 기간 : 2022-08-01 ~ 2022-08-12 (12일)
@@ -35,16 +36,14 @@
   - (DELETE) 댓글 삭제
  
 ## 모델링
-<img width="1400px" src="">
+<img width="1400px" src="https://user-images.githubusercontent.com/91110192/184282825-6ca9b57b-20a5-4a4b-9490-4d6fb9989d07.png">
 
 ## 사이트 시현 영상
-<img src="https://user-images.githubusercontent.com/91110192/181877787-b8f6c159-017d-4452-aac7-5b4e364c5f67.gif">
+<img src="">
 
 ## API 명세서
-<img width="797" alt="스크린샷 2022-07-30 오후 3 33 59" src="https://user-images.githubusercontent.com/91110192/181878038-25f4d635-4407-4d84-b4f1-fbe2c041096f.png">
-<img width="789" alt="스크린샷 2022-07-30 오후 3 33 51" src="https://user-images.githubusercontent.com/91110192/181878041-6ccdd0d4-9a61-4354-9086-7fa46f2e6cf7.png">
-<img width="793" alt="스크린샷 2022-07-30 오후 3 33 35" src="https://user-images.githubusercontent.com/91110192/181878044-bf1f17df-6cf4-42ae-9a1e-25c518bbf126.png">
-<img width="796" alt="스크린샷 2022-07-30 오후 3 33 21" src="https://user-images.githubusercontent.com/91110192/181878045-98d8a784-5828-43f7-80f9-a6f403c55fba.png">
+<img width="789" alt="스크린샷 2022-07-30 오후 3 33 59" src="https://user-images.githubusercontent.com/91110192/184282350-510e56d4-78bc-438c-9739-7a0143fb4c0f.png">
+<img width="789" alt="스크린샷 2022-07-30 오후 3 33 51" src="https://user-images.githubusercontent.com/91110192/184282359-0e093317-0426-4adf-9735-6404edefd773.png">
 
 * [싱그러운 우리 API](https://pastoral-slice-3c4.notion.site/API-553343a65d5c49c1bdf2024745ce39c9)를 보시면, 자세한 API를 확인 가능합니다.
 
