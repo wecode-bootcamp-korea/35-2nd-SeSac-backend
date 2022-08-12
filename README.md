@@ -48,8 +48,8 @@
 <img src="">
 
 ## API 명세서
-<img width="789" alt="스크린샷 2022-07-30 오후 3 33 59" src="https://user-images.githubusercontent.com/91110192/184282350-510e56d4-78bc-438c-9739-7a0143fb4c0f.png">
-<img width="789" alt="스크린샷 2022-07-30 오후 3 33 51" src="https://user-images.githubusercontent.com/91110192/184282359-0e093317-0426-4adf-9735-6404edefd773.png">
+<img width="789" alt="스크린샷 2022-07-30 오후 3 33 59" src="https://user-images.githubusercontent.com/91110192/184284788-c9657496-28e3-4027-bccf-9ebd0ef858ed.png">
+<img width="789" alt="스크린샷 2022-07-30 오후 3 33 51" src="https://user-images.githubusercontent.com/91110192/184284793-e3f193f4-8718-47ac-9a0f-00da5e949f10.png">
 
 * [싱그러운 우리 API](https://pastoral-slice-3c4.notion.site/API-553343a65d5c49c1bdf2024745ce39c9)를 보시면, 자세한 API를 확인 가능합니다.
 
