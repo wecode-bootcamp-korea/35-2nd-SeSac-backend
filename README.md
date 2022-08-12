@@ -6,7 +6,7 @@
 ## 팀 인원
 - BE(2명): 김동규, 박서윤
 - FE(4명): 김영수, 박성은, 손민지, 이금관
-<img width="800px" src="https://user-images.githubusercontent.com/91110192/184283372-ca6c21ff-6cd2-4449-91aa-a40dc203f012.jpg">
+<img width="700px" src="https://user-images.githubusercontent.com/91110192/184283372-ca6c21ff-6cd2-4449-91aa-a40dc203f012.jpg">
 
 ## 개발 기간
 - 개발 기간 : 2022-08-01 ~ 2022-08-12 (12일)
