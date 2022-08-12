@@ -1,6 +1,6 @@
 # PROJECT: 싱그러운 우리
 ## 소개
-- [싱그러운 집]([https://www.bang-olufsen.com/ko/kr](https://www.shouse.garden/main/main.html)을 모티브로 한 사이트
+- [싱그러운 집](https://www.shouse.garden/main/main.html)을 모티브로 한 사이트
 - 자연과 식물에 관한 여행지를 포스팅, 공유하는 커뮤니티 사이트
 
 ## 팀 인원
@@ -22,8 +22,14 @@
 **박서윤**
 - ERD 모델링
 - 여행지 리스트
-  - GET
+  - (GET) 여행지 리스트 조회
+    - Q객체를 이용한 필터링
 - 여행지 상세
+  - (POST) 여행지 게시물 등록
+    - s3를 이용하여 이미지 업로드
+  - (GET) 여행지 게시물 상세 조회
+  - (DELETE) 여행지 게시물 삭제
+    - s3를 이용하여 이미지 삭제
 
 **김동규**
 - ERD 모델링
