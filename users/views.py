@@ -4,8 +4,10 @@ from django.views import View
 from django.http  import JsonResponse
 from django.conf  import settings
 
+from core.utils.login_decorator import login_decorator
 from core.utils.kakao_api import KakaoAPI
-from users.models         import User
+from core.utils.user_api import UserAPI
+from users.models import User
 
 class KakaoSocialLoginView(View):
     def get(self, request):
@@ -30,3 +32,14 @@ class KakaoSocialLoginView(View):
         access_token = jwt.encode({'id' : user.id}, settings.SECRET_KEY, settings.ALGORITHM)
 
         return JsonResponse({'access_token' : access_token, 'message' : message}, status = 200)
+
+class UserView(View):
+    @login_decorator
+    def delete(self):
+        user_api = UserAPI()
+        delete_info = user_api.delete_user_referenced_info()
+
+        if not delete_info == 'success':
+            return JsonResponse({'message' : 'delete_failure'}, status = 400)
+
+        return JsonResponse({'message' : 'success'}, status = 200)
